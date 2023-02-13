@@ -1,7 +1,10 @@
+use std::time::{Duration, Instant};
 use wopr::indicator;
 use wopr::VERSION;
 #[allow(unused_imports)]
 use wopr::indicator::*;
+
+
 
 fn main() {
     let highs: [f64; 42] = [
@@ -34,7 +37,12 @@ fn main() {
         let candle = indicator::Candle::new(i,open,closes[i],lows[i],highs[i]);
         candles.push(candle);
     }
-    indicator::print_candles(&candles);
-    let result: Vec<f64> = indicator::true_range_1(&candles);
-    println!("result {:?}", result);
+    //indicator::print_candles(&candles);
+    let start = Instant::now();
+    for _ in 1..1000 {
+        let _result: Vec<f64> = indicator::true_range_1(&candles);
+    }
+    let duration: Duration = start.elapsed();
+    println!("Time elapsed in true_range_1 is {:?}", duration);
+    
 }
